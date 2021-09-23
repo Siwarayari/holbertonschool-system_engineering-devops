@@ -1,3 +1,2 @@
 #!/bin/bush
-chmod --reference=olleh hello 
-
+chmod --reference=olleh hello
