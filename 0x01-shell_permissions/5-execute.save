@@ -1,4 +1,4 @@
 #!/bin/bash
-chmod u+x helloxy
+chmod u+x hello
 
 
