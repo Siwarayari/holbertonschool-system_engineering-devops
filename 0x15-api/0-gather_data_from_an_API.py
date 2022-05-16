@@ -1,20 +1,22 @@
 #!/usr/bin/python3
 """
-Module that returns information
-    about his/her todo list progress
+Uses https://jsonplaceholder.typicode.com along with an employee ID to
+return information about the employee todo list progress
 """
 
 import requests
-import sys
-if __name__ == "__main__":
-    userId = sys.argv[1]
-    user = requests.get(
-        "https://jsonplaceholder.typicode.com/users/{}".format(userId))
-    name = user.json().get('name')
-    req = requests.get('https://jsonplaceholder.typicode.com/todos')
-    todos = list(filter(lambda x: x['userId'] == int(sys.argv[1]), req.json()))
-    comp = list(filter(lambda x: x['completed'], todos))
-    print('Employee {} is done with tasks({}/{}):'
-          .format(name, len(comp), len(todos)))
-    t = list(x['title'] for x in comp)
-    print("\n".join("\t {}".format(task) for task in t))
+from sys import argv
+
+if __name__ == '__main__':
+    userId = argv[1]
+    user = requests.get("https://jsonplaceholder.typicode.com/users/{}".
+                        format(userId), verify=False).json()
+    todo = requests.get("https://jsonplaceholder.typicode.com/todos?userId={}".
+                        format(userId), verify=False).json()
+    completed_tasks = []
+    for task in todo:
+        if task.get('completed') is True:
+            completed_tasks.append(task.get('title'))
+    print("Employee {} is done with tasks({}/{}):".
+          format(user.get('name'), len(completed_tasks), len(todo)))
+    print("\n".join("\t {}".format(task) for task in completed_tasks)=
