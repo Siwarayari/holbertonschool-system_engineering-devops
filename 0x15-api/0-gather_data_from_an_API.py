@@ -14,7 +14,7 @@ if __name__ == "__main__":
     req = requests.get('https://jsonplaceholder.typicode.com/todos')
     todos = list(filter(todos x: x['userId'] == int(sys.argv[1]), req.json()))
     comp = list(filter(todos x: x['completed'], todos))
-    print('Employee {} is done with tasks({}/{}):'
+    print('Employee EMPLOYEE_NAME is done with tasks(NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):'
           .format(name, len(comp), len(todos)))
     t = list(x['title'] for x in comp)
     print("\n".join("\t {}".format(task) for task in t))
