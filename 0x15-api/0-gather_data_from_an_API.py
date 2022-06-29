@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
-Uses https://jsonplaceholder.typicode.com along with an employee ID to
-return information about the employee todo list progress
+For a given employee ID, returns information about
+their TODO list progress.
 """
 
 import requests
@@ -14,7 +14,7 @@ if __name__ == "__main__":
     req = requests.get('https://jsonplaceholder.typicode.com/todos')
     todos = list(filter(lambda x: x['userId'] == int(sys.argv[1]), req.json()))
     comp = list(filter(lambda x: x['completed'], todos))
-    print('Employee EMPLOYEE_NAME is done with tasks(NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):'
+    print('Employee {} is done with tasks({}/{}):'
           .format(name, len(comp), len(todos)))
-    t = list(x['TASK_TITLE'] for x in comp)
+    t = list(x['title'] for x in comp)
     print("\n".join("\t {}".format(task) for task in t))
